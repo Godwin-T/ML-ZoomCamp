@@ -1,6 +1,6 @@
 import requests
 
-url = "http://127.0.0.1:5000/predict"
+url = "http://127.0.0.1:9696/predict"
 data = {"customerid": "7892-pookp",
         "gender": "female",
         "seniorcitizen": 0,
