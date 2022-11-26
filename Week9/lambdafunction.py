@@ -1,6 +1,5 @@
-import numpy as np
-import tensorflow.lite as tflite
 from PIL import Image
+from keras_image_helper import create_preprocessor
 
 #Classes
 classes = ['dress',
@@ -13,7 +12,7 @@ classes = ['dress',
             'shorts',
             'skirt',
             't-shirt']
-
+preprocessor  = create_preprocessor('xception', target_size=(299,299))
 def preprocessing(path):
     with Image.open(path) as img:
         img = img.resize((299,299), Image.NEAREST)
@@ -24,9 +23,10 @@ def preprocessing(path):
     img -= 1
     return img
 
-def prediction(img_path):
+def prediction(url):
 
-    img = preprocessing(img_path)
+    img = preprocessor.from_url(url)
+    #img = preprocessing(img_path)
     interpreter = tflite.Interpreter(model_path = "C:/Users/Godwin/Documents/Workflow/MLZoomcamp/ML-ZoomCamp/Week9/lite_model.tflite")
     interpreter.allocate_tensors()
 
