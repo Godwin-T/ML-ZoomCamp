@@ -1,11 +1,10 @@
 #Importing Libraries
-import numpy as np
 import wget
-import keras
-import tensorflow as tf
+import tflite_runtime.interpreter as tflite
 from io import BytesIO
 from urllib import request
 from PIL import Image
+import numpy as np
 
 #Downloading model
 link = 'https://github.com/SVizor42/ML_Zoomcamp/releases/download/dino-dragon-model/dino_dragon_10_0.899.h5'
@@ -14,8 +13,8 @@ def model_downloaer_and_converter(link):
     wget.download(link, name)
 
     #Converting model to tflite
-    model = keras.models.load_model('model.h5')
-    converter = tf.lite.TFLiteConverter.from_keras_model(model)
+    #model = keras.models.load_model('model.h5')
+    converter = tflite.TFLiteConverter.from_keras_model(model)
     tflite = converter.convert()
 
     with open('lite_dino-dragon_model.tflite', 'wb') as f:
@@ -23,7 +22,7 @@ def model_downloaer_and_converter(link):
     print("Model successfully converter")
 
 #loading the model    
-interpreter = tf.lite.Interpreter(model_path = 'lite_dino-dragon_model.tflite')
+interpreter = tflite.Interpreter(model_path = 'lite_dino-dragon_model.tflite')
 interpreter.allocate_tensors()
 
 #checking indexes
