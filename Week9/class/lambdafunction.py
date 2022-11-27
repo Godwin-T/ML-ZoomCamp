@@ -15,6 +15,9 @@ classes = ['dress',
             'skirt',
             't-shirt']
 preprocessor  = create_preprocessor('xception', target_size=(299,299))
+
+interpreter = tflite.Interpreter(model_path = "./lite_model.tflite")
+interpreter.allocate_tensors()
 def preprocessing(path):
     with Image.open(path) as img:
         img = img.resize((299,299), Image.NEAREST)
@@ -29,8 +32,8 @@ def prediction(url):
 
     img = preprocessor.from_url(url)
     #img = preprocessing(img_path)
-    interpreter = tflite.Interpreter(model_path = "C:/Users/Godwin/Documents/Workflow/MLZoomcamp/ML-ZoomCamp/Week9/lite_model.tflite")
-    interpreter.allocate_tensors()
+    #interpreter = tflite.Interpreter(model_path = "C:/Users/Godwin/Documents/Workflow/MLZoomcamp/ML-ZoomCamp/Week9/lite_model.tflite")
+    #interpreter.allocate_tensors()
 
     input_index = interpreter.get_input_details()[0]['index']
     output_index = interpreter.get_output_details()[0]['index']
