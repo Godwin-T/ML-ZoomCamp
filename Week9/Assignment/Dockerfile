@@ -4,4 +4,6 @@ RUN pip install https://github.com/alexeygrigorev/tflite-aws-lambda/raw/main/tfl
 
 RUN pip install pillow
 
-Copy lambdafunction.py .
+COPY lambdafunction.py .
+
+CMD ["lambdafunction.lambdahandler"]
