@@ -1,29 +1,13 @@
 #Importing Libraries
-import numpy as np
-import wget
-import keras
-import tensorflow as tf
 from io import BytesIO
 from urllib import request
 from PIL import Image
+import numpy as np
+import tflite_runtime.interpreter as tflite
 
-#Downloading model
-link = 'https://github.com/SVizor42/ML_Zoomcamp/releases/download/dino-dragon-model/dino_dragon_10_0.899.h5'
-def model_downloaer_and_converter(link):
-    name = 'model.h5'
-    wget.download(link, name)
-
-    #Converting model to tflite
-    model = keras.models.load_model('model.h5')
-    converter = tf.lite.TFLiteConverter.from_keras_model(model)
-    tflite = converter.convert()
-
-    with open('lite_dino-dragon_model.tflite', 'wb') as f:
-        f.write(tflite)
-    print("Model successfully converter")
 
 #loading the model    
-interpreter = tf.lite.Interpreter(model_path = 'lite_dino-dragon_model.tflite')
+interpreter = tflite.Interpreter(model_path = 'dino-vs-dragon-v2.tflite')
 interpreter.allocate_tensors()
 
 #checking indexes
@@ -57,12 +41,10 @@ def prediction(url):
     interpreter.invoke()
 
     preds = interpreter.get_tensor(output_index)
-    return preds[0]
+    out = {'value': float(preds[0, 0])}
+    return out
 
 def lambdahandler(event, context):
     path = event['url']
     result = prediction(path)
     return result
-
-#loading image
-url = 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/df/Smaug_par_David_Demaret.jpg/1280px-Smaug_par_David_Demaret.jpg'
