@@ -1,7 +1,0 @@
-ACCOUNT=457585950856
-REGION=us-east-1
-REGISTRY=cloth-classifier
-PREFIX=${ACCOUNT}.dkr.ecr.${REGION}.amazonaws.com/${REGISTRY}
-
-TAG=clothing-model-xception-v4-001
-REMOTE_URL=${PREFIX}:${TAG}
