@@ -62,8 +62,8 @@ def predict_endpoint():
 
 
 if __name__ == '__main__':
-    #url = 'http://bit.ly/mlbookcamp-pants'
-    #pred = prediction(url)
-    #print(pred)
-    app.run(debug=True, host = '0.0.0.0', port = 9696)
+    url = 'http://bit.ly/mlbookcamp-pants'
+    pred = prediction(url)
+    print(pred)
+    #app.run(debug=True, host = '0.0.0.0', port = 9696)
     #serve(app, port=5000)
