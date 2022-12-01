@@ -1,0 +1,16 @@
+ACCOUNT_ID=457585950856
+REGION=us-east-1
+REPO_NAME=mlzoomcamp_images
+
+PREFIX=${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/${REPO_NAME}
+
+
+GATEWAY_LOCAL=zoomcamp_10_gateway:003
+GATEWAY_REMOTE=${PREFIX}:zoomcamp_10_gateway-003
+
+docker tag ${GATEWAY_LOCAL} ${GATEWAY_REMOTE}
+
+MODEL_LOCAL=zoomcamp_10_model:xception_v4
+MODEL_REMOTE=${PREFIX}:zoomcamp_10_model-xception_v4
+
+docker tag ${MODEL_LOCAL} ${MODEL_REMOTE}

@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clothing-gateway-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: clothing-gateway-deployment
+  template:
+    metadata:
+      labels:
+        app: clothing-gateway-deployment
+    spec:
+      containers:
+      - name: clothing-gateway-deployment
+        image: zoomcamp_10_gateway:003
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "200m"
+        ports:
+        - containerPort: 9696
+        env:
+          - name: TF-SERVING
+            value: tf-serving-clothing-model.default.svc.cluster.local:8500
