@@ -14,3 +14,6 @@ MODEL_LOCAL=zoomcamp_10_model:xception_v4
 MODEL_REMOTE=${PREFIX}:zoomcamp_10_model-xception_v4
 
 docker tag ${MODEL_LOCAL} ${MODEL_REMOTE}
+
+docker push ${MODEL_REMOTE}
+docker push ${GATEWAY_REMOTE}
